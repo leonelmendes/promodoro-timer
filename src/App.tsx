@@ -7,7 +7,7 @@ import { useEffect } from 'react';
 
 import { Home } from './pages/Home';
 import { AppRoutes } from './AppRoutes';
-import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
+import { SafeAreaView, SafeAreaProvider } from 'react-native-safe-area-context';
 import { Theme } from './shared/themes/theme';
 
 SplashScreen.preventAutoHideAsync();
@@ -26,29 +26,11 @@ export function App() {
   }, [loaded, error]);
 
   return (
-    <NavigationContainer 
-      theme={{
-        ...DefaultTheme,
-        fonts: {
-          ...DefaultTheme.fonts,
-          bold: {
-            fontFamily: Theme.fonts.interBold,
-            fontWeight: '700',
-          },
-          regular: {
-            fontFamily: Theme.fonts.interRegular,
-            fontWeight: '500'
-          }
-        },
-        colors: {
-          ...DefaultTheme.colors,
-          background: Theme.colors.background,
-          primary: Theme.colors.primary,
-          text: Theme.colors.text,
-          card: Theme.colors.divider
-        }
-      }}>
-      <AppRoutes/>
-    </NavigationContainer>
+    <SafeAreaProvider>
+      <SafeAreaView style={{flex: 1, backgroundColor: Theme.colors.background}}>
+        <StatusBar style='light'/>
+        <AppRoutes/>
+      </SafeAreaView>
+    </SafeAreaProvider>
   );
 }
